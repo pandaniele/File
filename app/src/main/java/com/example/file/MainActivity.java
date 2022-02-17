@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity{
     Button btnLeggi;
 Button btnScrivi;
     TextView txtContenuto;
+    TextView txtOut;
     GestoreFile gf;
 
     @Override
@@ -22,23 +23,24 @@ Button btnScrivi;
         btnLeggi=(Button)findViewById(R.id.btnLeggi);
         btnScrivi=(Button)findViewById(R.id.btnScrivi);
         txtContenuto=(TextView)findViewById(R.id.textContenuto);
+        txtOut=(TextView)findViewById(R.id.textView);
         gf=new GestoreFile();
         btnLeggi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String stringaRicevuta=gf.readFile("Filedaleggere.txt", getApplicationContext());
+                String stringaRicevuta=gf.readFile(txtContenuto.getText().toString(), getApplicationContext());
 
                 Toast.makeText(getApplicationContext(),stringaRicevuta, Toast.LENGTH_SHORT).show();
-                txtContenuto.setText(stringaRicevuta);
+                txtOut.setText(stringaRicevuta);
             }
         });
 
         btnScrivi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String esito=gf.scriviFile("Filedaleggere.txt", getApplicationContext());
+                String esito=gf.scriviFile(txtContenuto.getText().toString(), getApplicationContext());
                 Toast.makeText(getApplicationContext(),esito, Toast.LENGTH_SHORT).show();
-                txtContenuto.setText(esito);
+                txtOut.setText(esito);
             }
         });
     }
