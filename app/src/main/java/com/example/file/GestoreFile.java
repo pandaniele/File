@@ -1,6 +1,7 @@
 package com.example.file;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,7 +9,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.InvalidObjectException;
 import java.nio.charset.StandardCharsets;
 
 public class GestoreFile {
@@ -96,4 +99,30 @@ public class GestoreFile {
         //eccezione non riesce a gestire questo metodo.
         return esito;
     }
+                                //file li prendo dall'activity a cui io faccio riferimento
+    public String leggiRawFile (Context c){
+        StringBuilder sb=new StringBuilder();
+        //c=activity
+        Resources res=c.getResources();
+        //puntatore alle risorse res
+        InputStream is= res.openRawResource(R.raw.brani);
+        //sono i byte del file
+                                              //bit in caratteri
+        BufferedReader br=new BufferedReader(new InputStreamReader(is));
+        //ciclo per leggere il file
+
+        String testoDaRestituire="";
+
+        try {
+            while ((testoDaRestituire = br.readLine()) != null) {
+                sb.append(testoDaRestituire +"\n");
+            }
+        }
+      catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+
+    }
+
 }
