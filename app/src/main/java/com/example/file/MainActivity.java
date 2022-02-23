@@ -29,7 +29,7 @@ Button btnScrivi;
             @Override
             public void onClick(View v) {
                // String stringaRicevuta=gf.readFile(txtContenuto.getText().toString(), getApplicationContext());
-                String stringaRicevuta=gf.leggiRawFile(getApplicationContext());
+                String stringaRicevuta=gf.leggiAsset(getApplicationContext());
                 Toast.makeText(getApplicationContext(),stringaRicevuta, Toast.LENGTH_SHORT).show();
                 txtOut.setText(stringaRicevuta);
             }

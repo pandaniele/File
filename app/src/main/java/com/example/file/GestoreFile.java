@@ -1,6 +1,7 @@
 package com.example.file;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.util.Log;
 import android.widget.Toast;
@@ -70,7 +71,8 @@ public class GestoreFile {
        return sb.toString();
     }
 
-
+//ECCEZIONI CONTOLLATE LE CONTROLLA IDE E IL PROGRAMMATORE LE DEVE GESTIRE (IOEXPECTION).
+    //ECCEZIONI NON CONTROLLATE COME LA ROUNTIMEERROR
     public String scriviFile(String nomefile, Context c)
     {
         FileOutputStream fileO; //
@@ -80,7 +82,7 @@ public class GestoreFile {
         try {
                                                   //tipo di accesso al file
             fileO=c.openFileOutput(nomefile,Context.MODE_PRIVATE);
-
+//OPENFILE==METODO DEL CONTEXT CHE TI RESTITUISCE UN OGGETTO DELLA CLASSE.
                  //testo da scrivere in byte percio' converto
             fileO.write(testodascrivere.getBytes(StandardCharsets.UTF_8));
             //
@@ -101,8 +103,10 @@ public class GestoreFile {
     }
                                 //file li prendo dall'activity a cui io faccio riferimento
     public String leggiRawFile (Context c){
+
         StringBuilder sb=new StringBuilder();
         //c=activity
+        //////////////
         Resources res=c.getResources();
         //puntatore alle risorse res
         InputStream is= res.openRawResource(R.raw.brani);
@@ -124,5 +128,27 @@ public class GestoreFile {
         return sb.toString();
 
     }
+    //leggere file dalla cartella rasset
 
-}
+    public String leggiAsset(Context c) {
+        StringBuilder sb=new StringBuilder();
+        AssetManager aa = c.getAssets();
+
+        try {
+            InputStream is = aa.open("AssetBrano.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            String testoDaRestituire = "";
+
+            while ((testoDaRestituire = br.readLine()) != null) {
+                sb.append(testoDaRestituire + "\n");
+            }
+        }
+        catch(IOException e){
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+    }
+
+
